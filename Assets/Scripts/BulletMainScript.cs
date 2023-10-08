@@ -7,6 +7,7 @@ public class BulletMainScript : MonoBehaviour
 
     public float speed;
     public bool follow = true;
+    public GameObject plane;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class BulletMainScript : MonoBehaviour
 
         if (follow)
         {
-            transform.position = PositionSynchronizer.SharedPosition;
+            transform.position = plane.transform.position;
 
 
             if (Input.GetKeyDown(KeyCode.Space))
