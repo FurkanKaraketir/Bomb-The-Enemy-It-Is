@@ -23,6 +23,7 @@ public class BulletMainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Rigidbody2D rb = plane.GetComponent<Rigidbody2D>();
 
         if (follow)
         {
@@ -32,7 +33,9 @@ public class BulletMainScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 follow = false;
-                gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.right * speed;
+                float dir = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.right));
+
+                gameObject.GetComponent<Rigidbody2D>().velocity = rb.GetRelativeVector(Vector2.right) * speed;
                 gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
 
