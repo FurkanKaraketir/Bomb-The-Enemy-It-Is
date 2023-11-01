@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AircraftMainScript : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class AircraftMainScript : MonoBehaviour
     public float acceleration;
     public GameObject fuelText;
     public GameObject speedText;
+    public GameObject guideText;
     float fuel = 100f;
+    Scene scene;
 
     Rigidbody2D rb;
 
@@ -26,14 +29,20 @@ public class AircraftMainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
+
         rb = GetComponent<Rigidbody2D>();
         firstSpeed = speed;
+        Destroy(guideText, 5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(scene.name);
+        }
 
 
 
@@ -43,8 +52,9 @@ public class AircraftMainScript : MonoBehaviour
             //Instantiate bullet
             GameObject bullet = Instantiate(Resources.Load("Bullet")) as GameObject;
 
-            //Set bullet position to player position
-            bullet.transform.position = new Vector2(transform.position.x, transform.position.y - 2f);
+            //Set bullet position to below of player
+            bullet.transform.position = transform.position - transform.up * 2.0f;
+
 
             //Set bullet rotation to player rotation
             bullet.transform.rotation = transform.rotation;
